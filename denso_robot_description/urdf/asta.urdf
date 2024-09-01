@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot  name="box">
+
+  <static>false</static>
+  <link
+    name="asta_link">
+    
+    <visual>
+      <origin
+        xyz="0.6 0 0.1"
+        rpy="1.57 0 1.57" />
+      <geometry>
+        <mesh
+          filename="package://src/denso_robot_ros2/denso_robot_description/meshes/denso_robot/visual/destra23.stl" 
+          scale="0.002 0.002 0.002" />
+      </geometry>
+      <material name="">
+        <color rgba="0.6 0.6 0.6 1" />
+      </material>
+    </visual>
+    <collision>
+    <origin xyz="0 0 0"
+        rpy="0 0 0"/>
+    <geometry>
+      <mesh
+          filename="package://src/denso_robot_ros2/denso_robot_description/meshes/denso_robot/visual/destra23.stl" 
+          scale="0.002 0.002 0.002" />
+    </geometry>
+  </collision>
+
+    <inertial>
+    <origin xyz="0 0 0 "
+        rpy="0 0 0"/>
+    <mass value="0.002"/>
+    <inertia
+      ixx="0.00001" ixy="0.0" ixz="0.0"
+      iyy="0.00001" iyz="0.0"
+      izz="0.00001"/>
+  </inertial>
+  </link>
+
+  
+
+  
+
+  
+  
+
+  <!-- Gazebo Colors -->
+  <gazebo reference="asta_link">
+    <selfCollide>true</selfCollide>
+    <xacro:body_color />
+  </gazebo>
+  
+
+</robot>

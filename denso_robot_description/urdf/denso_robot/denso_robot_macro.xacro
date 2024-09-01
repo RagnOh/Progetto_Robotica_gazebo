@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:include filename="$(find denso_robot_description)/urdf/common.xacro" />
+
+    <xacro:property name="camera_link" value="0.03" /> <!-- Size of square 'camera' box -->
+  <xacro:macro name="denso_robot" params="
+    prefix 
+    parent 
+    *origin 
+    initial_positions:=${dict(joint1=0.0,joint2=0.0,joint3=0.0,joint4=0.0,joint5=0.0,joint6=0.0, joint_gripper=0.0,  joint_gripper_mimic=0.0)}"
+    >
+    <!-- LINKS -->
+    <!-- base link -->
+    <link name="${prefix}base_link">
+      <!-- Default inertial for Gazebo/Ingnition - copy and edit block from 'common.xacro'
+           to get more realistic behaviour-->
+      <xacro:default_inertial/>
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://denso_robot_description/meshes/denso_robot/visual/base_link.dae" scale="1 1 1"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+           <box size="0.2 0.2 0.2"/>
+        </geometry>
+      </collision>
+    </link>
+    <!-- link 1 -->
+    <link name="${prefix}link1">
+      <!-- Default inertial for Gazebo/Ingnition - copy and edit block from 'common.xacro'
+           to get more realistic behaviour-->
+      <xacro:default_inertial/>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://denso_robot_description/meshes/denso_robot/visual/J1.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://denso_robot_description/meshes/denso_robot/visual/J1.dae" />
+        </geometry>
+      </collision>
+    </link>
+    <!-- link 2 -->
+    <link name="${prefix}link2">
+      <!-- Default inertial for Gazebo/Ingnition - copy and edit block from 'common.xacro'
+           to get more realistic behaviour-->
+      <xacro:default_inertial/>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://denso_robot_description/meshes/denso_robot/visual/J2.dae" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://denso_robot_description/meshes/denso_robot/visual/J2.dae"  />
+        </geometry>
+      </collision>
+    </link>
+    <!-- link 3 -->
+    <link name="${prefix}link3">
+      <!-- Default inertial for Gazebo/Ingnition - copy and edit block from 'common.xacro'
+           to get more realistic behaviour-->
+      <xacro:default_inertial/>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://denso_robot_description/meshes/denso_robot/visual/J3.dae" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://denso_robot_description/meshes/denso_robot/visual/J3.dae"  />
+        </geometry>
+      </collision>
+    </link>
+    <!-- link 4 -->
+    <link name="${prefix}link4">
+      <!-- Default inertial for Gazebo/Ingnition - copy and edit block from 'common.xacro'
+           to get more realistic behaviour-->
+      <xacro:default_inertial/>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://denso_robot_description/meshes/denso_robot/visual/J4.dae" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://denso_robot_description/meshes/denso_robot/visual/J4.dae"  />
+        </geometry>
+      </collision>
+    </link>
+    <!-- link 5 -->
+    <link name="${prefix}link5">
+      <!-- Default inertial for Gazebo/Ingnition - copy and edit block from 'common.xacro'
+           to get more realistic behaviour-->
+      <xacro:default_inertial/>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://denso_robot_description/meshes/denso_robot/visual/J5.dae" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://denso_robot_description/meshes/denso_robot/visual/J5.dae" />
+        </geometry>
+      </collision>
+      
+       
+    </link>
+    <!-- link 6 -->
+    <link name="${prefix}link6">
+      <!-- Default inertial for Gazebo/Ingnition - copy and edit block from 'common.xacro'
+           to get more realistic behaviour-->
+      <xacro:default_inertial/>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://denso_robot_description/meshes/denso_robot/visual/gripper_base.dae" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://denso_robot_description/meshes/denso_robot/visual/gripper_base.dae" />
+        </geometry>
+      </collision>
+    </link>
+
+    
+   
+    
+
+   
+
+    
+    
+    <!--gripper_base -->
+    
+	
+	
+	<!-- left -->
+	
+	
+
+    <!-- All-zero tool frame. This frame should correspond to the TOOL frame of the robot's controller.) -->
+    
+    <!-- tool link -->
+    <link name="camera_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 1.5"/>
+      <geometry>
+    <box size="${camera_link} ${camera_link} ${camera_link}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="${camera_link} ${camera_link} ${camera_link}"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+    
+  </link>
+
+  <link name="${prefix}left_finger">
+		<visual>
+			<origin rpy="0.000000 0.000000 0.000000" xyz="0.000000 0.000000 0.010000"/>
+			<geometry>
+				<box size="0.08 0.01 0.03"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin rpy="0 0 0" xyz="0.000000 0.000000 0.010000"/>
+			<geometry>
+				<box size="0.08 0.01 0.03"/>
+			</geometry>
+		</collision>
+		<inertial>
+			<mass value="1"/>
+			<origin rpy="0.000000 0.000000 0.000000" xyz="0.000000 0.000000 0.000000"/>
+			<inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+		</inertial>
+	</link>
+	
+<link name="${prefix}right_finger">
+		<visual>
+			<origin rpy="0.000000 0.000000 0.000000" xyz="0.000000 0.000000 0.010000"/>
+			<geometry>
+				<box size="0.08 0.01 0.03"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin rpy="0 0 0" xyz="0.000000 0.000000 0.010000"/>
+			<geometry>
+				<box size="0.08 0.01 0.03"/>
+			</geometry>
+		</collision>
+		<inertial>
+			<mass value="1"/>
+			<origin rpy="0.000000 0.000000 0.000000" xyz="0.000000 0.000000 0.000000"/>
+			<inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+		</inertial>
+	</link>	
+
+  
+
+    <!-- END LINKS -->
+
+    <!-- JOINTS -->
+    <!-- base_joint fixes base_link to the environment -->
+    <joint name="${prefix}base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="${prefix}base_link" />
+    </joint>
+    <!-- joint 1 -->
+    <joint name="${prefix}joint1" type="revolute">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}link1" />
+      <axis xyz="-0.0 -0.0 1.0" />
+      <limit effort="1000" lower="${radians(-360)}" upper="${radians(360)}" velocity="${radians(10)}" />
+      <dynamics damping="0.001" friction="0.61"/>
+    </joint>
+    <!-- joint 2 -->
+    <joint name="${prefix}joint2" type="revolute">
+      <origin xyz="0 0 0.18" rpy="0 0 0" />
+      <parent link="${prefix}link1" />
+      <child link="${prefix}link2" />
+      <axis xyz="-0 1 -0" />
+      <limit effort="1000" lower="${radians(-110)}" upper="${radians(110)}" velocity="${radians(50)}" />
+      <dynamics damping="0.001" friction="0.61"/>
+    </joint>
+    <!-- joint 3 -->
+    <joint name="${prefix}joint3" type="revolute">
+      <origin xyz="0 0 0.165" rpy="0 0 0" />
+      <parent link="${prefix}link2" />
+      <child link="${prefix}link3" />
+      <axis xyz="0 1 0" />
+      <limit effort="1000" lower="${radians(-130)}" upper="${radians(130)}" velocity="${radians(58)}" />
+      <dynamics damping="0.001" friction="0.61"/>
+    </joint>
+    <!-- joint 4 -->
+    <joint name="${prefix}joint4" type="revolute">
+      <origin xyz="-0.012 0.02 -0.345" rpy="0 0 0" />
+      <parent link="${prefix}link3" />
+      <child link="${prefix}link4" />
+      <axis xyz="-0 -0 1" />
+      <limit effort="1000" lower="${radians(-270)}" upper="${radians(270)}" velocity="${radians(200)}" />
+      <dynamics damping="0.001" friction="0.61"/>
+    </joint>
+    <!-- joint 5 -->
+    <joint name="${prefix}joint5" type="revolute">
+      <origin xyz="0 -0.02 0.5225" rpy="0 0 0" />
+      <parent link="${prefix}link4" />
+      <child link="${prefix}link5" />
+      <axis xyz="0 1 0" />
+      <limit effort="1000" lower="${radians(-360)}" upper="${radians(360)}" velocity="${radians(540)}" />
+      <dynamics damping="0.001" friction="0.67"/>
+    </joint>
+    <!-- joint 6 -->
+    <joint name="${prefix}joint6" type="revolute">
+      <origin xyz="0 -0.0445 0.042" rpy="0 0 0" />
+      <parent link="${prefix}link5" />
+      <child link="${prefix}link6" />
+      <axis xyz="0 0 1" />
+      <limit effort="1000" lower="${radians(-360)}" upper="${radians(360)}" velocity="${radians(864)}" />
+      <dynamics damping="0.001" friction="0.67"/>
+    </joint>
+
+    <joint name="${prefix}joint_gripper" type="prismatic">
+		<parent link="${prefix}link6"/>
+		<child link="${prefix}left_finger"/>
+		<origin rpy="0.000000 0.010000 0.000000" xyz="0.000000 0.000000 0.04000"/>
+		<axis xyz="0.002263 0.999997 -0.000000"/>
+		<limit effort="100" lower="0.000000" upper="0.05000" velocity="50"/>
+		<dynamics damping="0" friction="0"/>
+	</joint>
+	
+	
+	
+	<joint name="${prefix}joint_gripper_mimic" type="prismatic">
+		<parent link="${prefix}link6"/>
+		<child link="${prefix}right_finger"/>
+		<origin rpy="0.000000 0.010000 0.000000" xyz="0.000000 0.000000 0.04000"/>
+		<axis xyz="0.002263 0.9999997 -0.000000"/>
+		<limit effort="100" lower="0.000000" upper="-0.05000" velocity="50"/>
+		<dynamics damping="0" friction="0"/>
+	</joint>
+
+    
+   
+	
+	
+	
+    
+    <joint name="camera_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.05 -0.08 0.02" rpy="1.3 -1.57 0"/>
+    <parent link="link5"/>
+    <child link="camera_link"/>
+  </joint>
+  
+ 
+    
+    
+
+    <!-- tool frame - fixed frame -->
+    
+    <!-- END JOINTS -->
+    
+    <gazebo>
+    <plugin name="ignition::gazebo::systems::Sensors" filename="libignition-gazebo-sensors-system"> 
+    <render_engine>ogre2</render_engine>
+    </plugin>
+  </gazebo>
+
+ <gazebo reference="camera_link">
+<sensor type="camera" name="camera">
+<camera>
+  <update_rate>10.0</update_rate>
+  <always_on>true</always_on>
+  <ignition_frame_id>camera_link_optical</ignition_frame_id>
+  <pose>0 0 0 0 0 0</pose>
+  <topic>stereo_camera/right/image_raw</topic>
+  <horizontal_fov>1.3962634</horizontal_fov>
+  <image>
+      <width>480</width>
+      <height>480</height>
+      <format>R8G8B8</format>
+  </image>
+  <clip>
+      <near>0.1</near>
+      <far>100</far>
+  </clip>
+  
+  </camera>
+  <always_on>1</always_on>
+  <visualize>true</visualize>
+  <update_rate>30</update_rate>
+  <topic>camera</topic>
+</sensor>
+ 
+</gazebo>
+
+<transmission name="trans_gripper">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="${prefix}joint_gripper">
+			<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_gripper">
+			<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+  <transmission name="trans_gripper_mimic">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="${prefix}joint_gripper_mimic">
+			<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_gripper_mimic">
+			<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+  
+  
+    
+    
+    
+
+  </xacro:macro>
+
+  
+</robot>
