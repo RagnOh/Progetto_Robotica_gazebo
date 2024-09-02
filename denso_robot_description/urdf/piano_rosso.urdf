@@ -6,25 +6,25 @@
        <static>true</static>
    2   <link name="my_box">
    3     <inertial>
-   4       <origin xyz="0.02 0.18 0" />
+   4       <origin xyz="-0.3 -0.0 0" />
    5       <mass value="1.0" />
    6       <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
    7     </inertial>
    8     <visual>
-   9       <origin xyz="0.02 0.18 0"/>
+   9       <origin xyz="-0.3 -0.0 0"/>
   10       <geometry>
-  11         <box size="0.2 0.2 0.01" />
+  11         <box size="0.2 0.3 0.01" />
   12       </geometry>
              
         <material name="v">
-                <color rgba="0 1 0 1" />
+               <color rgba="1 0 0 1" />
             </material>
       
   13     </visual>
   14     <collision name="collision">
-  15       <origin xyz="0.02 0.18 0"/>
+  15       <origin xyz="-0.3 -0.0 0"/>
   16       <geometry>
-  17         <box size="0.2 0.2 0.01" />
+  17         <box size="0.2 0.3 0.01" />
   18       </geometry>
   19     </collision>
   20   </link>

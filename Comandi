@@ -1,0 +1,25 @@
+
+#Comando per inviare angolo giunti in modo manuale
+ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{layout: {}, data: [0,0,0,0,0,0,0,0]}"
+
+
+#Comando per avviare simulazione gazebo del Denso Cobotta
+ros2 launch denso_robot_bringup denso_robot_bringup.launch.py sim_gazebo:=true robot_controller:=forward_position_controller
+
+#Comando per avviare bridge ign/ROS2 per il trasfermento delle immagini della camera
+ros2 run ros_ign_bridge parameter_bridge /camera@sensor_msgs/msg/Image@ignition.msgs.Image
+
+#Comandi per spawnare i cubi
+ign service -s /world/empty/create --reqtype ignition.msgs.EntityFactory --reptype ignition.msgs.Boolean --timeout 1000 --req 'sdf_filename: "/src/denso_robot_ros2/denso_robot_description/urdf/cubo.urdf", name: "cubo"'
+
+ign service -s /world/empty/create --reqtype ignition.msgs.EntityFactory --reptype ignition.msgs.Boolean --timeout 1000 --req 'sdf_filename: "/src/denso_robot_ros2/denso_robot_description/urdf/cubo_blu.urdf", name: "cubob"'
+
+#Comandi per spawnare i piani di riferimento
+ign service -s /world/empty/create --reqtype ignition.msgs.EntityFactory --reptype ignition.msgs.Boolean --timeout 1000 --req 'sdf_filename: "/src/denso_robot_ros2/denso_robot_description/urdf/piano_rosso.urdf", name: "plan_red"'
+
+ign service -s /world/empty/create --reqtype ignition.msgs.EntityFactory --reptype ignition.msgs.Boolean --timeout 1000 --req 'sdf_filename: "/src/denso_robot_ros2/denso_robot_description/urdf/piano_blu.urdf", name: "plan_blu"'
+
+#extra
+ign service -s /world/empty/create --reqtype ignition.msgs.EntityFactory --reptype ignition.msgs.Boolean --timeout 1000 --req 'sdf_filename: "/src/denso_robot_ros2/denso_robot_description/urdf/piano.urdf", name: "piano"'
+
+ign service -s /world/empty/create --reqtype ignition.msgs.EntityFactory --reptype ignition.msgs.Boolean --timeout 1000 --req 'sdf_filename: "/src/denso_robot_ros2/denso_robot_description/urdf/asta.urdf", name: "asta"'
